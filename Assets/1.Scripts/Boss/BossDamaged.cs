@@ -33,6 +33,9 @@ public class BossDamaged : MonoBehaviour
     [SerializeField]
     private GameObject _dieEffect = null;
 
+    [SerializeField]
+    private Canvas _endingCreditCnavas = null;
+
     private void Awake()
     {
         _bossMove = GetComponent<BossMove>();
@@ -63,10 +66,10 @@ public class BossDamaged : MonoBehaviour
     {
         GameObject effect = Instantiate(_dieEffect, transform.position, Quaternion.Euler(-90f, 0f, 70f));
         Destroy(effect, 3f);
-        StartCoroutine(CoinBoom());
+        StartCoroutine(CoinBoomAndStartEnding());
     }
 
-    private IEnumerator CoinBoom()
+    private IEnumerator CoinBoomAndStartEnding()
     {
         for(int i =0; i<40; i++)
         {
@@ -74,5 +77,8 @@ public class BossDamaged : MonoBehaviour
             Instantiate(_coin, transform.position + new Vector3(random.x, 0.5f, random.z), Quaternion.Euler(new Vector3(90f, 0f, 0f)));
             yield return new WaitForSeconds(0.1f);
         }
+
+        _endingCreditCnavas.gameObject.SetActive(true);
+        _endingCreditCnavas.GetComponent<EndingCredit>().EndingText();
     }
 }
