@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Random = UnityEngine.Random;
+using TMPro;
 
 public class BossMove : MonoBehaviour
 {
@@ -37,7 +38,10 @@ public class BossMove : MonoBehaviour
     private Canvas _bossCanvas = null;
 
     private BossDamaged _bossDamaged = null;
-    
+
+    [SerializeField]
+    private TextMeshProUGUI _tooltipText = null;
+    private Coroutine _tooltipCoroutine = null;
 
     private bool _berserkerMode = false;
 
@@ -72,13 +76,19 @@ public class BossMove : MonoBehaviour
 
         _bossCanvas.gameObject.SetActive(true);
         transform.LookAt(_player.transform.position);
+
+    }
+
+    private IEnumerator ToolTipOn()
+    {
+        _tooltipText.enabled = true;
+        yield return new WaitForSeconds(3f);
+        _tooltipText.enabled = false;
     }
 
     private void Update()
     {
         StateSometing();
-
-
     }
 
     private IEnumerator SummonSkeleton()
@@ -162,6 +172,11 @@ public class BossMove : MonoBehaviour
         {
             _animator.SetTrigger("Knockback");
             StartCoroutine(Healing());
+
+            if (_tooltipCoroutine != null)
+                StopCoroutine(_tooltipCoroutine);
+
+            _tooltipCoroutine = StartCoroutine(ToolTipOn());
             return BossStates.KnockbackAttack;
         }
         else if (Vector3.Distance(transform.position + Vector3.forward * 2.3f, _player.transform.position) < 5f) // 가까이 있다면

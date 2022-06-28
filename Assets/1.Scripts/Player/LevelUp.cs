@@ -61,8 +61,8 @@ public class LevelUp : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.T)) // 디버그용 무조건 지우셈
         {
-            ExpUp(66);
-            GetComponent<Player>().Coin += 60;
+            ExpUp(1);
+            GetComponent<Player>().Coin += 1;
         }
     }
 
