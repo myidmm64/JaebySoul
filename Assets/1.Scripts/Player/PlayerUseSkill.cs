@@ -17,6 +17,8 @@ public class PlayerUseSkill : MonoBehaviour
         {
             _mp = value;
 
+            _mp = Mathf.Clamp(_mp, 0, _maxMP);
+
             _mpSlider.value = (float)_mp / _maxMP;
         }
     }
@@ -29,6 +31,7 @@ public class PlayerUseSkill : MonoBehaviour
         set
         {
             _maxMP = value;
+
 
             _mpSlider.value = (float)_mp / _maxMP;
         }
@@ -81,6 +84,17 @@ public class PlayerUseSkill : MonoBehaviour
     {
         _currentTime = _cooltime;
         MP = MaxMP;
+
+        StartCoroutine(MPUp());
+    }
+
+    private IEnumerator MPUp()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(1.5f);
+            MP += 1;
+        }
     }
 
     private void Update()

@@ -53,7 +53,7 @@ public class BossMove : MonoBehaviour
         MeleeAttack,
         FireAttack,
         Dead,
-        KnockbackAttack
+        JumpHeal
     }
 
     [SerializeField]
@@ -150,15 +150,15 @@ public class BossMove : MonoBehaviour
                 case BossStates.FireAttack:
                     _state = BossStates.FireAttack;
                     break;
-                case BossStates.KnockbackAttack:
-                    _state = BossStates.KnockbackAttack;
+                case BossStates.JumpHeal:
+                    _state = BossStates.JumpHeal;
                     break;
 
             }
 
             if (_state == BossStates.Idle)
                 yield return new WaitForSeconds(1f);
-            if (_state == BossStates.KnockbackAttack)
+            if (_state == BossStates.JumpHeal)
                 yield return new WaitForSeconds(5f);
             else
                 yield return new WaitForSeconds(3f);
@@ -177,7 +177,7 @@ public class BossMove : MonoBehaviour
                 StopCoroutine(_tooltipCoroutine);
 
             _tooltipCoroutine = StartCoroutine(ToolTipOn());
-            return BossStates.KnockbackAttack;
+            return BossStates.JumpHeal;
         }
         else if (Vector3.Distance(transform.position + Vector3.forward * 2.3f, _player.transform.position) < 5f) // 가까이 있다면
         {
@@ -233,7 +233,7 @@ public class BossMove : MonoBehaviour
                 break;
             case BossStates.FireAttack:
                 break;
-            case BossStates.KnockbackAttack:
+            case BossStates.JumpHeal:
                 transform.LookAt(_player.transform.position);
                 break;
             case BossStates.Dead:

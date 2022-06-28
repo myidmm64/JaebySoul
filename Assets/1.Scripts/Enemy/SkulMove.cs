@@ -392,6 +392,7 @@ public class SkulMove : MonoBehaviour
             _atkCollider.gameObject.tag = "Untagged";
 
             OnDieEvent?.Invoke(1); // 경험치 증가시키기
+            OnDieEvent?.Invoke(1); // 경험치 증가시키기
             player.MonsterCnt++;
 
             Destroy(gameObject, DieAnimationClip.length - 0.15f); // DIE 애니메이션 실행 후 디스트로이

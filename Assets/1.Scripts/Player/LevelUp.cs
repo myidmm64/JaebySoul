@@ -57,15 +57,6 @@ public class LevelUp : MonoBehaviour
         GUI.Label(new Rect(10, 220, 100, 200), $"현재 레벨 : {_currentlevel}", gUI);
     }*/
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.T)) // 디버그용 무조건 지우셈
-        {
-            ExpUp(1);
-            GetComponent<Player>().Coin += 1;
-        }
-    }
-
     public void ExpUp(int value)
     {
         _currentExp += value;

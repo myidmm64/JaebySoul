@@ -18,6 +18,8 @@ public class PlayerDamaged : MonoBehaviour
         {
             _hp = value;
 
+            _hp = Mathf.Clamp(_hp, 0 , _maxHP);
+
             _hpSlider.value = (float)_hp / _maxHP;
 
             if (_hp <= 3)
