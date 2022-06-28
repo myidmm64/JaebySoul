@@ -36,6 +36,9 @@ public class BossMove : MonoBehaviour
     [SerializeField]
     private Canvas _bossCanvas = null;
 
+    private BossDamaged _bossDamaged = null;
+    
+
     private bool _berserkerMode = false;
 
     public enum BossStates
@@ -45,15 +48,18 @@ public class BossMove : MonoBehaviour
         Walk,
         MeleeAttack,
         FireAttack,
-        Dead
+        Dead,
+        KnockbackAttack
     }
 
+    [SerializeField]
     private BossStates _state = BossStates.None;
 
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _bossDamaged = GetComponent<BossDamaged>();
         //_characterController = GetComponent<CharacterController>();
     }
 
@@ -99,14 +105,20 @@ public class BossMove : MonoBehaviour
         }
     }
 
+    private IEnumerator GenericSummonTail()
+    {
+        yield return new WaitForSeconds(_tailSummonInterval);
+        GameObject effect = Instantiate(_auraEffect, _player.transform.position + Vector3.up * (-1), Quaternion.identity);
+        yield return new WaitForSeconds(2f);
+        GameObject tail = Instantiate(_tailPrefab, effect.transform.position + new Vector3(0f, -2f, 1.5f), Quaternion.Euler(new Vector3(-90f, 0f, 0f)));
+        tail.transform.DOMoveY(tail.transform.position.y + 3f, 0.4f);
+        Destroy(effect);
+    }
+
     private IEnumerator StateCoroutine()
     {
         while(true)
         {
-            if (_state == BossStates.Idle)
-                yield return new WaitForSeconds(2f);
-            else
-                yield return new WaitForSeconds(3f);
 
             switch (RandomState())
             {
@@ -128,18 +140,35 @@ public class BossMove : MonoBehaviour
                 case BossStates.FireAttack:
                     _state = BossStates.FireAttack;
                     break;
+                case BossStates.KnockbackAttack:
+                    _state = BossStates.KnockbackAttack;
+                    break;
 
             }
+
+            if (_state == BossStates.Idle)
+                yield return new WaitForSeconds(1f);
+            if (_state == BossStates.KnockbackAttack)
+                yield return new WaitForSeconds(5f);
+            else
+                yield return new WaitForSeconds(3f);
         }
     }
 
+
     private BossStates RandomState()
     {
-        if (Vector3.Distance(transform.position + Vector3.forward * 2.3f, _player.transform.position) < 5f) // 가까이 있다면
+        if (Vector3.Distance(transform.position, _player.transform.position) < 2.5f) // 가까이 있다면
         {
-            return Random.Range(0, 100) < 50 ? BossStates.Idle : BossStates.MeleeAttack;
+            _animator.SetTrigger("Knockback");
+            StartCoroutine(Healing());
+            return BossStates.KnockbackAttack;
         }
-        if (Vector3.Distance(transform.position + Vector3.forward * 2.3f, _player.transform.position) >= 5f) // 좀 떨어져 있다면
+        else if (Vector3.Distance(transform.position + Vector3.forward * 2.3f, _player.transform.position) < 5f) // 가까이 있다면
+        {
+            return Random.Range(0, 100) < 35 ? BossStates.Idle : BossStates.MeleeAttack;
+        }
+        else if (Vector3.Distance(transform.position + Vector3.forward * 2.3f, _player.transform.position) >= 5f) // 좀 떨어져 있다면
         {
             _berserkerMode = false;
             return (BossStates)Random.Range(2, 4);
@@ -152,6 +181,15 @@ public class BossMove : MonoBehaviour
         else
         {
             return (BossStates)Random.Range(2, 4);
+        }
+    }
+
+    private IEnumerator Healing()
+    {
+        for(int i = 0; i<5; i++)
+        {
+            yield return new WaitForSeconds(0.8f);
+            _bossDamaged.HP += 30;
         }
     }
 
@@ -179,6 +217,9 @@ public class BossMove : MonoBehaviour
                 transform.LookAt(_player.transform.position);
                 break;
             case BossStates.FireAttack:
+                break;
+            case BossStates.KnockbackAttack:
+                transform.LookAt(_player.transform.position);
                 break;
             case BossStates.Dead:
                 break;

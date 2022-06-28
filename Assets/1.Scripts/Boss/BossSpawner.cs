@@ -11,6 +11,8 @@ public class BossSpawner : MonoBehaviour
     private GameObject _dragonPrefab = null;
     [SerializeField]
     private Transform _spawnPosition = null;
+    [SerializeField]
+    private GameObject _effect = null;
 
     [SerializeField]
     private TextMeshProUGUI _text = null;
@@ -59,10 +61,8 @@ public class BossSpawner : MonoBehaviour
 
     private IEnumerator SpawnBoss(Player player)
     {
-        yield return new WaitForSeconds(8f);
-
-        //GameObject boss = Instantiate(_dragonPrefab, _spawnPosition.position, Quaternion.identity);
-        //boss.GetComponent<BossMove>().Init(_bossCanvas , _player.gameObject);
+        yield return new WaitForSeconds(6f);
+        _effect.SetActive(false);
         _dragonPrefab.SetActive(true);
     }
 

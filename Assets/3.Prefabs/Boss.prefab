@@ -2927,7 +2927,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5549301796090927018
 Transform:
   m_ObjectHideFlags: 0
@@ -2995,9 +2995,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 0}
-  _speed: 2
+  _speed: 0.5
   _tailSummonInterval: 2
-  _spawnerSummonInterval: 10
+  _spawnerSummonInterval: 25
   _tailPrefab: {fileID: 2072548448048313980, guid: 4eb290aef2d08d14dbe9abcf57588b71, type: 3}
   _spawner: {fileID: 1142353645404864932, guid: a4d537769c54c554e9d32b54d9f61154, type: 3}
   _auraEffect: {fileID: 1293630020605024, guid: ea309e8646148c24ab067d84d5d22697, type: 3}
@@ -3018,6 +3018,7 @@ MonoBehaviour:
   - {fileID: 792256534}
   - {fileID: 140892108}
   _bossCanvas: {fileID: 0}
+  _knockbackCollider: {fileID: 0}
 --- !u!54 &2996412573620657949
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3059,7 +3060,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hpSlider: {fileID: 0}
-  _maxHP: 100
+  _maxHP: 2000
+  _coin: {fileID: 7999648025765787389, guid: 5a66d515ffc515d4fa668487c0631a5b, type: 3}
+  _dieEffect: {fileID: 1722250247140862, guid: ef134ce1a2a98d94fb68c860d9c736c6, type: 3}
 --- !u!1 &5549301796090587210
 GameObject:
   m_ObjectHideFlags: 0

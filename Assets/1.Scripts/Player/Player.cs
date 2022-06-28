@@ -321,7 +321,7 @@ public class Player : MonoBehaviour, IMoveAble
 
         OnBattle?.Invoke();
         _sword.SetActive(true);
-        _atkCollider.enabled = true;
+        //_atkCollider.enabled = true;
         _isStop = true;
         IsAttackAble = false;
     }
@@ -356,7 +356,7 @@ public class Player : MonoBehaviour, IMoveAble
     /// </summary>
     public void SwordAttackEnd()
     {
-        _atkCollider.enabled = false;
+        //_atkCollider.enabled = false;
         _isStop = false;
         IsAttackAble = true;
     }
@@ -585,9 +585,25 @@ public class Player : MonoBehaviour, IMoveAble
         });
     }
 
+    private bool _particleDamaged = false; 
+
     private void OnParticleCollision(GameObject other)
     {
+        if (_particleDamaged) return;
+        StartCoroutine(ParticleDamageCoroutine());
         Debug.Log("ÆÄÆ¼Å¬");
         _playerDamaged.HP -= 2;
+    }
+
+    private IEnumerator ParticleDamageCoroutine()
+    {
+        _particleDamaged = true;
+        yield return new WaitForSeconds(0.4f);
+        _particleDamaged = false;
+    }
+
+    public void Knockback(Vector3 dir)
+    {
+        transform.Translate(dir * 5f);
     }
 }

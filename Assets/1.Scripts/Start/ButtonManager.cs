@@ -26,4 +26,8 @@ public class ButtonManager : MonoBehaviour
         Recipe.SetActive(false);
         _isOpen = false;
     }
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }

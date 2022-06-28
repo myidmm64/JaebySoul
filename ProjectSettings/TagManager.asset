@@ -10,6 +10,7 @@ TagManager:
   - Coin
   - Boss
   - DragonSpawn
+  - Knockback
   layers:
   - Default
   - TransparentFX

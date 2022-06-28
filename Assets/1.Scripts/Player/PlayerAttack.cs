@@ -26,6 +26,9 @@ public class PlayerAttack : MonoBehaviour
     private GameObject _finalAttackEffect = null;
 
     [SerializeField]
+    private GameObject _attackDamageEffect = null;
+
+    [SerializeField]
     private Transform _playerTransform = null; // 플레이어의 트랜스폼
     private Player _player = null; // 
     private PlayerInputs _playerInput = null; // 기본공격 함수 가져오기
@@ -59,6 +62,11 @@ public class PlayerAttack : MonoBehaviour
         if(other.CompareTag("Boss"))
         {
             other.GetComponent<BossDamaged>()?.Damage(damage: _damage); //닿은 녀석에게 데미지 주기
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward * 3f, out hit))
+            {
+                GameObject effect = Instantiate(_attackDamageEffect, hit.point, Quaternion.identity);
+            }
         }
     }
 

@@ -17,6 +17,9 @@ public class PlayerRun : MonoBehaviour
 
     private void Update()
     {
+        if (_player.playerState == Player.PlayerState.Skilling)
+            return;
+
         if (Input.GetKeyDown(KeyCode.LeftShift)) // 왼쪽 시프트를 누르고있을 때 달리기
         {
             _player.OnIdle?.Invoke();

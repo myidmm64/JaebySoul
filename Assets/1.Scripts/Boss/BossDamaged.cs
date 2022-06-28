@@ -18,6 +18,7 @@ public class BossDamaged : MonoBehaviour
         set
         {
             _hp = value;
+            _hp = Mathf.Clamp(_hp, 0, _maxHP);
             _hpSlider.value = (float)_hp / _maxHP;
         }
     }
