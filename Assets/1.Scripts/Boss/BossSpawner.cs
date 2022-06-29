@@ -25,9 +25,13 @@ public class BossSpawner : MonoBehaviour
     private bool _spawned = false;
 
     public UnityEvent OnBossBG = null;
+    [SerializeField]
+    private AudioClip _dragonSpawnClip = null;
+    private AudioSource _audioSource;
 
     private void Awake()
     {
+        _audioSource = GetComponent<AudioSource>();
         _shakeCamera = GetComponent<ShakeCamera>();     
     }
 
@@ -63,6 +67,9 @@ public class BossSpawner : MonoBehaviour
 
     private IEnumerator SpawnBoss(Player player)
     {
+        _audioSource.clip = _dragonSpawnClip;
+        _audioSource.Play();
+
         yield return new WaitForSeconds(6f);
         _effect.SetActive(false);
         _dragonPrefab.SetActive(true);

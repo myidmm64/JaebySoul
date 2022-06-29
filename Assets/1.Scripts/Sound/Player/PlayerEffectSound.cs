@@ -9,35 +9,38 @@ public class PlayerEffectSound : AudioPlayer
 
     public void PlayMeleeAttackSound()
     {
-        PlayClip(_dataSO.meleeAttackClip);
+        PlayClipWithVariablePitch(_dataSO.meleeAttackClip);
     }
     public void PlayDashSound()
     {
+        _audioSorce.pitch = 1f;
         PlayClip(_dataSO.dashClip);
     }
     public void PlayDamageSound()
     {
-        PlayClip(_dataSO.damageClip);
+        PlayClipWithVariablePitch(_dataSO.damageClip);
     }
     public void PlayLevelUpSound()
     {
+        _audioSorce.pitch = 1f;
         PlayClip(_dataSO.levelUpClip);
     }
     public void PlayRangeAttackSound()
     {
-        PlayClip(_dataSO.rangeAttackClip);
+        PlayClipWithVariablePitch(_dataSO.rangeAttackClip);
     }
     public void PlayWalkSound()
     {
+        _audioSorce.pitch = 1f;
         PlayClip(_dataSO.walkClip);
     }
     public void PlayPosionDrinkSound()
     {
-        PlayClip(_dataSO.posionDrinkClip);
+        PlayClipWithVariablePitch(_dataSO.posionDrinkClip);
     }
     public void PlayCoinSound()
     {
-        PlayClip(_dataSO.coinClip);
+        PlayClipWithVariablePitch(_dataSO.coinClip);
     }
 
 }

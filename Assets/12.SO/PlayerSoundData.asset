@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkClip: {fileID: 0}
   dashClip: {fileID: 8300000, guid: 3061c7b9b32d894478e4126ccce25ca3, type: 3}
-  meleeAttackClip: {fileID: 8300000, guid: a58e438b7cfa445498120af0e6169082, type: 3}
+  meleeAttackClip: {fileID: 8300000, guid: e36df2d045be2a64ba586be349f8951b, type: 3}
   rangeAttackClip: {fileID: 8300000, guid: 06ada5590eba8d6489b36c6f3c54ff78, type: 3}
   damageClip: {fileID: 8300000, guid: d9419ba0bfac1e84a95418ac5851caf6, type: 3}
   posionDrinkClip: {fileID: 8300000, guid: 78419f98379502c4dbfb2774bc94e7c1, type: 3}
-  levelUpClip: {fileID: 8300000, guid: c48a972d3d024c2408a3331750786a29, type: 3}
+  levelUpClip: {fileID: 8300000, guid: 7153fd1c0cd600a419d6760945e977d1, type: 3}
   coinClip: {fileID: 8300000, guid: 8401456349c492a489ed90469e317e43, type: 3}

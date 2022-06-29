@@ -5,6 +5,7 @@ using UnityEngine;
 using DG.Tweening;
 using Random = UnityEngine.Random;
 using TMPro;
+using UnityEngine.Events;
 
 public class BossMove : MonoBehaviour
 {
@@ -44,6 +45,11 @@ public class BossMove : MonoBehaviour
     private Coroutine _tooltipCoroutine = null;
 
     private bool _berserkerMode = false;
+
+    public UnityEvent OnStart = null;
+    public UnityEvent OnFly = null;
+    public UnityEvent OnMeleeAttack = null;
+    public UnityEvent OnTail = null;
 
     public enum BossStates
     {
@@ -110,6 +116,7 @@ public class BossMove : MonoBehaviour
             GameObject effect = Instantiate(_auraEffect, _player.transform.position + Vector3.up * (-1), Quaternion.identity);
             yield return new WaitForSeconds(2f);
             GameObject tail = Instantiate(_tailPrefab, effect.transform.position + new Vector3(0f, -2f, 1.5f) , Quaternion.Euler(new Vector3(-90f, 0f ,0f)));
+            OnTail?.Invoke();
             tail.transform.DOMoveY(tail.transform.position.y + 3f, 0.4f);
             Destroy(effect);
         }
@@ -127,7 +134,9 @@ public class BossMove : MonoBehaviour
 
     private IEnumerator StateCoroutine()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(0.5f);
+        OnStart?.Invoke();
+        yield return new WaitForSeconds(3.5f);
 
         while (true)
         {
@@ -179,6 +188,7 @@ public class BossMove : MonoBehaviour
                 StopCoroutine(_tooltipCoroutine);
 
             _tooltipCoroutine = StartCoroutine(ToolTipOn());
+            OnFly?.Invoke();
             return BossStates.JumpHeal;
         }
         else if (Vector3.Distance(transform.position + Vector3.forward * 2.3f, _player.transform.position) < 5f) // 가까이 있다면
@@ -254,6 +264,15 @@ public class BossMove : MonoBehaviour
             GameObject efffect = Instantiate(_meleeAttackEffect, _effectPos[i]);
             Destroy(efffect, 2f);
         }
+    }
+
+    public void OnMeleeAttackSound()
+    {
+        OnMeleeAttack?.Invoke();
+    }
+    public void OnDieSound()
+    {
+        OnStart?.Invoke();
     }
 
     public void CoroutineStop()

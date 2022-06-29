@@ -12,6 +12,15 @@ public class SpawnMonster : MonoBehaviour
     [SerializeField]
     private GameObject _spawnBeforeEffect = null;
 
+    [SerializeField]
+    private AudioClip _spawnMonsterClip = null;
+    private AudioSource _audioSource = null;
+
+    private void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
+
     private bool isSpwan = false; // 스폰중인가
 
     private void OnTriggerEnter(Collider other)
@@ -28,6 +37,9 @@ public class SpawnMonster : MonoBehaviour
 
     private IEnumerator Spawn(GameObject target)
     {
+        _audioSource.clip = _spawnMonsterClip;
+        _audioSource.Play();
+
         GameObject effect = Instantiate(_spawnBeforeEffect, transform.position, Quaternion.Euler(new Vector3(-90f, 0f ,0f)));
         Destroy(effect, 5f);
         transform.parent.GetComponent<MeshRenderer>().material.color = Color.red;

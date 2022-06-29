@@ -794,7 +794,14 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.5055459
+        functionName: OnMeleeAttackSound
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 7550159e3f1828b4b9a0a4e32604fd03, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1

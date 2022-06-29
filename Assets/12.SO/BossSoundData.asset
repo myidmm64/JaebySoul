@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d947538bb2a47b42afab5a2a764a021, type: 3}
   m_Name: BossSoundData
   m_EditorClassIdentifier: 
-  startClip: {fileID: 0}
-  flyClip: {fileID: 0}
-  meleeAttackClip: {fileID: 0}
-  tailAttackClip: {fileID: 0}
+  startClip: {fileID: 8300000, guid: 0c9ceb4cc3e3c974ca7bc205ec83b3d1, type: 3}
+  flyClip: {fileID: 8300000, guid: 5a762e2eb40007d4eb97482f37fb62dd, type: 3}
+  meleeAttackClip: {fileID: 8300000, guid: 545eac90112fd3f4eaee612ef5a8ff02, type: 3}
+  tailAttackClip: {fileID: 8300000, guid: 531a99236cfdeb84bac64973bd9c7668, type: 3}
