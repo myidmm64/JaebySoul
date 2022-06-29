@@ -31,7 +31,7 @@ public class EndingCredit : MonoBehaviour
     private IEnumerator DelayCoroutine()
     {
         _beforeCredit.enabled = true;
-        for(int i = 10; i > 0; i--)
+        for(int i = 15; i > 0; i--)
         {
             _beforeCredit.SetText($"클리어 축하드립니다 !!!\n{i}초 뒤에 엔딩 크레딧이 나옵니다.");
             yield return new WaitForSeconds(1f);

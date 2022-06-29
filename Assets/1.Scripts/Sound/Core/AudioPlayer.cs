@@ -8,7 +8,7 @@ public class AudioPlayer : MonoBehaviour
     protected AudioSource _audioSorce;
     [SerializeField]
     protected float _pitchRandomness = 0.2f;
-    protected float _basePitch = 0f;
+    protected float _basePitch = 1f;
     protected virtual void Awake()
     {
         _audioSorce = GetComponent<AudioSource>();
