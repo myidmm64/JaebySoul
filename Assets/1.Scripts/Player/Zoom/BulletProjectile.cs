@@ -46,7 +46,7 @@ public class BulletProjectile : MonoBehaviour
         {
             //보스에게 데미지
             if (other.GetComponent<BossDamaged>() != null) // 
-                other.GetComponent<BossDamaged>().Damage(_damage / 2);
+                other.GetComponent<BossDamaged>().Damage((int)(_damage * 0.33f));
         }
 
         if (other.GetComponent<BulletTarget>() != null) // 타겟에 맞았는가?

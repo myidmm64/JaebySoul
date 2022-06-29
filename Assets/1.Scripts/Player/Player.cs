@@ -112,7 +112,7 @@ public class Player : MonoBehaviour, IMoveAble
             _monsterCnt = value;
             _monsterCnt = Mathf.Clamp(_monsterCnt, 0, 42);
             _monsterCntText.SetText($"{_monsterCnt} / 42");
-            if(_monsterCnt >= 42)
+            if(_monsterCnt >= 6)
             {
                 _isWeakMonsterEnd = true;
                 _bossSpawner.SetActive(true);
