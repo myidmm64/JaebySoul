@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class HPPosion : Item
@@ -15,6 +16,8 @@ public class HPPosion : Item
     private Image _cantBuyImage = null;
     [SerializeField]
     private int _hpUp = 1; // HP를 얼마나 올려줄 것인지
+
+    public UnityEvent OnFinishPosion = null;
 
 
     private void Awake()
@@ -39,6 +42,8 @@ public class HPPosion : Item
 
         if(Count > 0) // 갯수가 1개 이상일 때만 적용
         {
+
+            OnFinishPosion?.Invoke();
             _playerDamage.HP += _hpUp;
             Count--;
         }

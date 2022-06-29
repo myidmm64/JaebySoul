@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 //밤으로 바꾸는 스크립트
 public class NightChanger : MonoBehaviour
@@ -22,6 +23,9 @@ public class NightChanger : MonoBehaviour
     public Action OnNight;
     public Action OnDay;
 
+    public UnityEvent OnNightBG;
+    public UnityEvent OnDayBG;
+
     private bool _alwaysNight = false;
     public bool AlwaysNight
     {
@@ -31,6 +35,7 @@ public class NightChanger : MonoBehaviour
     private void Start()
     {
         OnDay?.Invoke();
+        OnDayBG?.Invoke();
     }
 
     private void Update()
@@ -41,7 +46,6 @@ public class NightChanger : MonoBehaviour
             transform.rotation *= Quaternion.Euler(new Vector3(260f, 0f, 0f));
             _isNight = true;
             RenderSettings.skybox = _nightSkyboxMaterial;
-            OnNight?.Invoke();
             return;
         }
 
@@ -53,6 +57,7 @@ public class NightChanger : MonoBehaviour
             {
                 _isNight = true;
                 OnNight?.Invoke();
+                OnNightBG?.Invoke();
                 RenderSettings.skybox = _nightSkyboxMaterial;
                 for (int i =0; i<lights.Count; i++)
                 {

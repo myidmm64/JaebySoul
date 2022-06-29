@@ -5,6 +5,7 @@ using DG.Tweening;
 using System;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class PlayerDash : MonoBehaviour
 {
@@ -32,6 +33,8 @@ public class PlayerDash : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _noDashText = null;
     private Sequence seqE = null;
+
+    public UnityEvent OnDash = null;
 
     private void Awake()
     {
@@ -66,6 +69,7 @@ public class PlayerDash : MonoBehaviour
 
             if (_dashAble) // 대시가 가능하면 실행
             {
+                OnDash?.Invoke();
                 Dash();
                 StartCoroutine(DashAnimation());
                 StartCoroutine(DashCoroutine());

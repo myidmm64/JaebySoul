@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class MPPosion : Item
@@ -15,6 +16,8 @@ public class MPPosion : Item
     private Image _cantBuyImage = null;
     [SerializeField]
     private int _mpUp = 1; // MP를 얼마나 올려줄 것인지
+
+    public UnityEvent OnFinishPosion = null;
 
     private void Awake()
     {
@@ -38,6 +41,7 @@ public class MPPosion : Item
 
         if (Count > 0) // 개수가 1 이상일때만 적용
         {
+            OnFinishPosion?.Invoke();
             _playerUseSkill.MP += _mpUp;
             Count--;
         }

@@ -32,6 +32,9 @@ public class PlayerInputs : MonoBehaviour
     private bool _isOpenUI = false; // 옵션 UI를 열고있는가?
     private bool _isMarketOpen = false; // 상점 UI를 열고 있는가?
 
+    public UnityEvent OnZoom;
+    public UnityEvent OnRangeAttack;
+
     private void Awake()
     {
         _playerMove = GetComponent<Player>();
@@ -126,7 +129,7 @@ public class PlayerInputs : MonoBehaviour
 
             if (_playerMove.IsZoom == false) // 줌을 안했으면 그냥 근접공격
             {
-                if(_playerMove.AttackCnt == 0)
+                if (_playerMove.AttackCnt == 0)
                 {
                     MeleeAttack(); // 첫번째 공격일 때 start
                 }
@@ -139,6 +142,7 @@ public class PlayerInputs : MonoBehaviour
                     return;
                 }
                 _playerUseSkill.MP-= 2; // 줌샷을 할 때 마나 감소
+                OnRangeAttack?.Invoke();
                 _playerMove.OnZoomShoot?.Invoke();
             }
         }
@@ -147,6 +151,7 @@ public class PlayerInputs : MonoBehaviour
         {
             if (_playerMove.IsRun || _playerMove.IsFreeze || _playerMove.IsAttackAble == false) return;
 
+            OnZoom?.Invoke();
             _playerMove.OnZoom?.Invoke();
         }
         //오른쪽 클릭 해제 시 줌 해제

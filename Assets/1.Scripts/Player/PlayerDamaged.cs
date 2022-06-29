@@ -16,11 +16,16 @@ public class PlayerDamaged : MonoBehaviour
 
         set
         {
+            int curHP = _hp;
+
             _hp = value;
 
             _hp = Mathf.Clamp(_hp, 0 , _maxHP);
 
             _hpSlider.value = (float)_hp / _maxHP;
+
+            if (_hp > curHP)
+                return;
 
             if (_hp <= 3)
             {
@@ -47,6 +52,7 @@ public class PlayerDamaged : MonoBehaviour
                     return;
                 }
 
+                OnDamage?.Invoke();
                 StartCoroutine(DamageCoroutine());
             }
         }
@@ -78,6 +84,8 @@ public class PlayerDamaged : MonoBehaviour
 
     [field:SerializeField]
     private UnityEvent OnDie = null;
+    [field: SerializeField]
+    private UnityEvent OnDamage = null;
 
 
     [SerializeField]

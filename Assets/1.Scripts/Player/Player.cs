@@ -12,6 +12,9 @@ using TMPro;
 public class Player : MonoBehaviour, IMoveAble
 {
     [SerializeField]
+    private PlayerEffectSound _effectSound;
+
+    [SerializeField]
     private float _speed = 5f; // 캐릭터의 이동속도
     [SerializeField]
     private int _maxAnimationIdx = 2;
@@ -58,6 +61,8 @@ public class Player : MonoBehaviour, IMoveAble
     public UnityEvent OnZoomShoot = null; // 우클릭을 누르고 좌클릭을 눌렀을 때 실행될 이벤트
     public UnityEvent OnDash = null; // 대시 키를 눌렀을 때 실행될 이벤트
 
+    public UnityEvent OnMeleeAttack = null;
+
     private bool _isStop = false; // true면 안움직임
     public bool IsStop { get => _isStop; set => _isStop = value; } // 인터페이스 구현
     private bool _isBattle = false; // true면 전투상태
@@ -93,6 +98,7 @@ public class Player : MonoBehaviour, IMoveAble
     set
         {
             _coin = value;
+            _effectSound.PlayCoinSound();
             _coinText.SetText($"{_coin}");
         }
     } // 현재 가지고있는 코인 
@@ -117,6 +123,8 @@ public class Player : MonoBehaviour, IMoveAble
                 _isWeakMonsterEnd = true;
                 _bossSpawner.SetActive(true);
                 nightChanger.AlwaysNight = true;
+                nightChanger.OnNight?.Invoke();
+                nightChanger.OnNightBG?.Invoke();
                 Debug.Log("ㅁㄴㅇㅁ");
             }
         }
@@ -324,6 +332,7 @@ public class Player : MonoBehaviour, IMoveAble
         //_atkCollider.enabled = true;
         _isStop = true;
         IsAttackAble = false;
+        OnMeleeAttack?.Invoke();
     }
 
     /// <summary>

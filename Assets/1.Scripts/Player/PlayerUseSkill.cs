@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class PlayerUseSkill : MonoBehaviour
@@ -64,6 +65,8 @@ public class PlayerUseSkill : MonoBehaviour
     Sequence seq = null;
 
     Player.PlayerState curState = Player.PlayerState.None;
+
+    public UnityEvent OnBulletShot;
 
     /*private void OnGUI()
     {
@@ -155,6 +158,7 @@ public class PlayerUseSkill : MonoBehaviour
         {
             yield return new WaitForSeconds(0.1f);
             GameObject obj = Instantiate(_bulletPrefab, _shotPositions[i].position, transform.rotation);
+            OnBulletShot?.Invoke();
             obj.GetComponent<BulletProjectile>().Damage = 50;
             obj.transform.SetParent(null);
             obj.transform.localScale = new Vector3(0.2f, 0.2f, 0.5f);

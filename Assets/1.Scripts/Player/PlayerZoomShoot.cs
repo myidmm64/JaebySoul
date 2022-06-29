@@ -113,5 +113,6 @@ public class PlayerZoomShoot : MonoBehaviour
         Vector3 aimDir = (_mouseWorldPosition - _shootBulletPosition.position).normalized;
 
         Instantiate(_bullet, _shootBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+
     }
 }

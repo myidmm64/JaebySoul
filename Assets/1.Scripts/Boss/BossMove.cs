@@ -127,7 +127,9 @@ public class BossMove : MonoBehaviour
 
     private IEnumerator StateCoroutine()
     {
-        while(true)
+        yield return new WaitForSeconds(4f);
+
+        while (true)
         {
 
             switch (RandomState())

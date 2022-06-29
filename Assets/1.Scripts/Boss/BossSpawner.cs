@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class BossSpawner : MonoBehaviour
@@ -23,6 +24,7 @@ public class BossSpawner : MonoBehaviour
 
     private bool _spawned = false;
 
+    public UnityEvent OnBossBG = null;
 
     private void Awake()
     {
@@ -64,6 +66,8 @@ public class BossSpawner : MonoBehaviour
         yield return new WaitForSeconds(6f);
         _effect.SetActive(false);
         _dragonPrefab.SetActive(true);
+        OnBossBG?.Invoke();
+        
     }
 
     private void OnTriggerEnter(Collider other)
